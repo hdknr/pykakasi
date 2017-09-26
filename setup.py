@@ -2,6 +2,7 @@
 # derivered from unihandecode setup.py
 
 import os
+import sys
 from setuptools import setup
 from distutils.command.build import build
 
@@ -57,23 +58,32 @@ class my_build(build):
 
 
 tests_require = ['nose', 'coverage', 'mock']
-setup(name='pykakasi',
-      version='0.24',
-      description='Python implementation of kakasi - kana kanji simple inversion library',  # NOQA
-      url='http://github.com/miurahr/pykakasi',
-      license='GPLv3',
-      long_description=README,
-      author='Hioshi Miura',
-      author_email='miurahr@linux.com',
-      packages=['pykakasi',
-                'pykakasi.genkanwadict'],
-      provides=['pykakasi'],
-      scripts=["kakasi"],
-      include_package_data=True,
-      package_data={
-        'pykakasi': ['*.pickle', 'kanwadict2.*']},
-      test_suite='nose.collector',
-      tests_require=tests_require,
-      cmdclass={'build': my_build},
-      zip_safe=False,
-)
+
+
+def setup_package():
+    setup(name='pykakasi',
+          version='0.24',
+          description='Python implementation of kakasi - kana kanji simple inversion library',  # NOQA
+          url='http://github.com/miurahr/pykakasi',
+          license='GPLv3',
+          long_description=README,
+          author='Hioshi Miura',
+          author_email='miurahr@linux.com',
+          packages=['pykakasi',
+                    'pykakasi.genkanwadict'],
+          provides=['pykakasi'],
+          scripts=["kakasi"],
+          include_package_data=True,
+          package_data={
+            'pykakasi': ['*.pickle', 'kanwadict2.*']},
+          test_suite='nose.collector',
+          tests_require=tests_require,
+          cmdclass={'build': my_build},
+          zip_safe=False,
+    )
+
+
+if __name__ == '__main__':
+    if len(sys.argv[1]) < 2 or sys.argv[1] != 'build':
+        _pre_build()
+    setup_package()
