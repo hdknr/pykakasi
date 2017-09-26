@@ -4,6 +4,7 @@
 build
 dist
 pykakasi.egg-info
+pykakasi/kanwadict2.db.*
 .tox
 *.pickle
 *.db
